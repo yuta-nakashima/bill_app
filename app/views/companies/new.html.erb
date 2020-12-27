@@ -1,0 +1,12 @@
+<h1>顧客一覧</h1>
+<%= link_to "戻る", root_path %>
+<%= form_with model:@company, url:companies_path, local: true do |f|%>
+  <%= f.text_field :company_name %>
+  <%= f.submit "追加" %>
+<% end %>
+
+<% if @companies.present?%>
+  <% @companies.each do |company|%>
+    <%= company.company_name %><br>
+  <% end %>
+<% end %>

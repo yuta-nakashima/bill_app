@@ -7,7 +7,7 @@
           <li><%=link_to "Sign in", new_user_session_path %></li>
           <li><%=link_to "Sign up", new_user_registration_path %></li>
         <% else %>
-          <li><%=current_user.name %>
+          <li><%=current_user.user_name %>さん</li>
           <li><%=link_to "Sign out", destroy_user_session_path %></li>
         <% end %>
       </ul>
@@ -15,5 +15,25 @@
   </div>
 </header>
 <body>
-
+  <% if user_signed_in?%>
+    <div>
+      <%= link_to "顧客追加", new_company_path %>
+      <%= link_to "請求書作成", "#"%>
+      <%= link_to "予算作成", "#"%>
+      <%= link_to "詳細", company_path(current_user.id) %>
+    </div>
+    <div>
+      <h1>全体の売上グラフ</h1>
+    </div>
+    <div>
+      <h1>販管費</h1>
+    </div>
+    <div>
+      <h1>利益額</h1>
+    </div>
+  <% else %>
+    <div>
+      ログインしたら見れますよー
+    </div>
+  <% end %>
 </body>
