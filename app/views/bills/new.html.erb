@@ -1,0 +1,12 @@
+<p>顧客名</p>
+<%= link_to "戻る", bills_path %>
+
+<%= form_with model:@bill, url:bills_path, local: true do |f|%>
+<%= f.collection_select(:company_id, Company.all, :id, :company_name) %>
+<%= f.text_field :bill_item, placeholder:"請求項目" %>
+<%= f.text_field :bill_price, placeholder:"単価" %>
+<%= f.text_field :bill_unit, placeholder:"単位" %>
+<%= f.submit "更新"%>
+<div>
+
+<% end %>

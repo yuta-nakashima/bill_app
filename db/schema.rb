@@ -10,20 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_12_27_131600) do
+ActiveRecord::Schema.define(version: 2020_12_28_044448) do
 
   create_table "bills", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "bill_item"
     t.integer "bill_price"
     t.string "bill_unit"
+    t.bigint "company_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_bills_on_company_id"
   end
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
     t.string "company_name", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "invoices", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
+    t.string "invoice_item"
+    t.integer "invoice_price"
+    t.string "invoice_unit"
+    t.integer "invoice_count"
+    t.integer "invoice_total"
+    t.integer "invoice_tax"
+    t.datetime "invoice_date"
+    t.text "comment"
+    t.bigint "company_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_invoices_on_company_id"
+    t.index ["user_id"], name: "index_invoices_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -39,4 +58,7 @@ ActiveRecord::Schema.define(version: 2020_12_27_131600) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "bills", "companies"
+  add_foreign_key "invoices", "companies"
+  add_foreign_key "invoices", "users"
 end
