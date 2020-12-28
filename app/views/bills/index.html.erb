@@ -8,3 +8,5 @@
 <%# @invice.each do |invoice|%>
 <%#= invoice.company_name %>
 <%# end %>
+<%= notice %>
+<%= column_chart Bill.group(:bill_item).sum(:bill_price) %>
