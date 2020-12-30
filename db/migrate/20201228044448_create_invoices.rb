@@ -7,10 +7,9 @@ class CreateInvoices < ActiveRecord::Migration[6.0]
       t.integer    :invoice_count
       t.integer    :invoice_total
       t.integer    :invoice_tax
-      t.datetime   :invoice_date
-      t.text       :comment
+      t.date       :invoice_date
+      t.text       :invoice_comment
       t.references :company,  null: false, foreign_key: true
-      t.references :user,     null: false, foreign_key: true
       t.timestamps
     end
   end

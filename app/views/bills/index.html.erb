@@ -1,6 +1,6 @@
 <h1>請求書</h1>
 <%= link_to "テンプレート作成", new_bill_path %>
-<%= link_to "請求書作成", new_invoice_path %>
+<%= link_to "請求書作成", bills_search_path %>
 <%= link_to "戻る", root_path %>
 
 <h2>請求書作成済みリスト</h2>
@@ -9,4 +9,4 @@
 <%#= invoice.company_name %>
 <%# end %>
 <%= notice %>
-<%= column_chart Bill.group(:bill_item).sum(:bill_price) %>
+<%= column_chart Invoice.group(:invoice_date).sum(:invoice_total) %>

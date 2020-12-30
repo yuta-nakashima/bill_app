@@ -1,0 +1,42 @@
+<h1>請求書</h1>
+
+<%= link_to "戻る", bills_path %>
+
+<%= search_form_for @p, url:bills_search_path do |f| %>
+  <%= f.collection_select :company_id_eq, Company.all, :id, :company_name, include_blank: "企業選択"%>
+  <%= f.submit "作成"%>
+<% end %>
+
+<%= form_with model:@form, url: "/invoices#create",method: :post, local: true do |f| %>
+  <%= f.date_field :invoice_date, value: Time.now.strftime("%Y-%m-%d"), placeholder:"請求月"%><br>
+  <% if @results.length !=0 %>
+  <% @results.each do |result|%>
+  <%= f.fields_for :invoices do |i| %>
+  <table>
+  <th>
+    <td>
+      <%= i.text_field :invoice_item,value: result.bill_item, placeholder: "請求項目"%>
+    </td>
+    <td>
+      <%= i.text_field :invoice_price,value: result.bill_price, placeholder: "単価"%>
+    </td>
+    <td>
+      <%= i.text_field :invoice_count, placeholder: "数量"%>
+    </td>
+    <td>
+      <%= i.text_field :invoice_unit,value: result.bill_unit, placeholder: "単位"%>
+    </td>
+    <td>
+      <% f.text_field :company_id,value: result.company_id %>
+    </td>
+  </th>
+  </table>
+  <%end%>
+  <%end%>
+  <%end%>
+  <%= f.text_field :invoice_total, placeholder: "合計"%>
+  <%= f.text_field :invoice_tax, placeholder: "税"%>
+  <%= f.text_area :invoice_comment, placeholder: "備考"%>
+  <%= f.submit "確定"%>
+<% end %>
+

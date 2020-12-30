@@ -3,6 +3,9 @@ class BillsController < ApplicationController
   def index
   end
 
+  def show
+  end
+
   def new
     @bill = Bill.new
   end
@@ -14,6 +17,16 @@ class BillsController < ApplicationController
     else
       render :index
     end
+  end
+
+  def search
+    @p = Bill.ransack(params[:q])
+    @results =@p.result.includes(:company)
+    @bills = Bill.includes(:company)
+  end
+
+  def self.search
+    Bill.where("company_id LIKE(?)", "%#{search}%") if self !=""
   end
 
   private

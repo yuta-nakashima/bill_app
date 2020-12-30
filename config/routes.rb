@@ -7,5 +7,6 @@ Rails.application.routes.draw do
   resources :users, only: :create
   resources :bills, only: [:index, :new, :create, :edit, :destroy]
   resources :invoices, only: [:new, :create, :edit, :destroy]
+  get "bills/search"
 
 end
