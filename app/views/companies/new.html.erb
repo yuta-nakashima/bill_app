@@ -5,8 +5,3 @@
   <%= f.submit "追加" %>
 <% end %>
 
-<% if @companies.present?%>
-  <% @companies.each do |company|%>
-    <%= company.company_name %><br>
-  <% end %>
-<% end %>

@@ -1,12 +1,54 @@
+ <div>
+    <h1>SEIKYU!</h1>
+    <div>
+      <ul>
+        <% unless user_signed_in?%>
+          <li><%=link_to "Sign in", new_user_session_path %></li>
+          <li><%=link_to "Sign up", new_user_registration_path %></li>
+        <% else %>
+          <li><%=current_user.user_name %>さん</li>
+          <li><%=link_to "Sign out", destroy_user_session_path %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+</header>
+<body>
+  <% if user_signed_in?%>
+    <div>
+      <%= link_to "顧客追加", new_company_path %>
+      <%= link_to "請求書", new_bill_path %>
+      <%= link_to "予算", "#"%>
+      <%= link_to "詳細", company_path(current_user.id) %>
+    </div>
+    <div>
+      <h1>全体の売上グラフ</h1>
+    </div>
+    <div>
+      <h1>販管費</h1>
+    </div>
+    <div>
+      <h1>利益額</h1>
+    </div>
+  <% else %>
+    <div>
+      ログインしたら見れますよー
+    </div>
+  <% end %>
+
 <h1>請求書</h1>
 <%= link_to "テンプレート作成", new_bill_path %>
-<%= link_to "請求書作成", bills_search_path %>
+<%#= link_to "請求書作成", bills_search_path %>
 <%= link_to "戻る", root_path %>
 
-<h2>請求書作成済みリスト</h2>
-<div>期間指定<div>
-<%# @invice.each do |invoice|%>
-<%#= invoice.company_name %>
-<%# end %>
-<%= notice %>
-<%= column_chart Invoice.group(:invoice_date).sum(:invoice_total) %>
+<h2>請求書作成</h2>
+<%#   <% @bills.each do |bill|%>
+    <%#= link_to bill_path(bill.id) do %><br>
+      <%# if @bills.present?%>
+        <%#= bill.company_name %>
+      <%# end %>
+    <%# end %>
+  <%# end %>
+
+      <%= notice %>
+      <%#= column_chart Invoice.group(:invoice_date).sum(result.bill_price) %>

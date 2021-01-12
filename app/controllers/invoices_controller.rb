@@ -1,17 +1,20 @@
 class InvoicesController < ApplicationController
+  
+  def index
+    @form = Invoice.new
+  end
 
   def new
-    @form = Form::InvoiceCollection.new
+    @form = Invoice.new #Form::InvoiceCollection.new
     #@bill = Bill.find(params[:bill_id])
   end
 
   def create
-    @form = Form::InvoiceCollection.new(invoice_params)
-    binding.pry
-    if @form.save
+    @invoice = Invoice.create(invoice_params) #Form::InvoiceCollection.new(invoice_params)
+    if @invoice.save
       redirect_to bills_path
     else
-      redirect_to bills_search_path
+      redirect_to new_invoice_path
     end
 
   end
@@ -20,7 +23,7 @@ class InvoicesController < ApplicationController
     private
 
     def invoice_params
-      params.require(:form_invoice_collection).permit(invoices_attributes:[:invoice_item, :invoice_price, :invoice_unit, :invoice_total, :invoice_tax, :invoice_date, :invoice_comment, :company_id,:invoice_count])#.merge(user_id: current_user.id)
+      params.require(:invoice).permit(:invoice_item, :invoice_price, :invoice_unit, :invoice_date,:invoice_count).merge(bill_id: params[:bill_id])
     end
 
 end

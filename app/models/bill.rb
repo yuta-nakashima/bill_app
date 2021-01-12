@@ -1,4 +1,3 @@
 class Bill < ApplicationRecord
-  belongs_to :company
-  has_many :invoices
+  has_many :invoices, dependent: :destroy
 end

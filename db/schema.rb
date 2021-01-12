@@ -16,14 +16,14 @@ ActiveRecord::Schema.define(version: 2020_12_28_044448) do
     t.string "bill_item"
     t.integer "bill_price"
     t.string "bill_unit"
-    t.bigint "company_id", null: false
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["company_id"], name: "index_bills_on_company_id"
   end
 
   create_table "companies", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "company_name", null: false
+    t.text "company_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
@@ -33,14 +33,10 @@ ActiveRecord::Schema.define(version: 2020_12_28_044448) do
     t.integer "invoice_price"
     t.string "invoice_unit"
     t.integer "invoice_count"
-    t.integer "invoice_total"
-    t.integer "invoice_tax"
     t.date "invoice_date"
-    t.text "invoice_comment"
-    t.bigint "company_id", null: false
+    t.integer "bill_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["company_id"], name: "index_invoices_on_company_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
@@ -56,6 +52,4 @@ ActiveRecord::Schema.define(version: 2020_12_28_044448) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
-  add_foreign_key "bills", "companies"
-  add_foreign_key "invoices", "companies"
 end

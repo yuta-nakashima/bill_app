@@ -1,0 +1,40 @@
+<h1>請求書</h1>
+<%= link_to "戻る", bills_path %>
+
+
+<%= form_with model:[@bill,@invoice], local: true do |f| %>
+
+  <table>
+  <th>
+    <td>
+      <%= f.text_field :invoice_item,value: @bill.bill_item, placeholder: "請求項目"%>
+    </td>
+    <td>
+      <%= f.text_field :invoice_price,value: @bill.bill_price, placeholder: "単価"%>
+    </td>
+    <td>
+      <%= f.text_field :invoice_count, placeholder: "数量"%>
+    </td>
+    <td>
+      <%= f.text_field :invoice_unit,value: @bill.bill_unit, placeholder: "単位"%>
+    </td>
+    <td>
+      <%= f.date_field :invoice_date, value: Time.now.strftime("%Y-%m-%d") %>
+    </td>
+    <td>
+      <%#= f.text_field :bill_id, value: @bill.id%>
+  </th>
+  </table>
+    <%= f.submit "確定"%>
+
+<%end%>
+
+<% if @invoices.present?%>
+<% @invoices.each do |invoice|%>
+  <%= invoice.invoice_item%>
+  <%= invoice.invoice_price%>
+  <span>円</span>
+  <%= invoice.invoice_count%>
+  <%= invoice.invoice_unit%>
+<% end %>
+<% end %>
